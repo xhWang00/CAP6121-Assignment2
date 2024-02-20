@@ -9,14 +9,17 @@ public class SliceObject : MonoBehaviour
     public Transform endPoint;
     public VelocityEstimator velocityEstimator;
     public LayerMask sliceableLayer;
+    public AudioClip sliceSound;
 
     public Material crossMaterial;
     public float cutForce = 2000f;
 
+    private GameObject audioPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioPlayer = GameObject.FindGameObjectWithTag("AudioPlayer");
     }
 
     // Update is called once per frame
@@ -46,14 +49,15 @@ public class SliceObject : MonoBehaviour
             GameObject lowerHull = hull.CreateLowerHull(target, crossMaterial);
             SetupSlicedComp(lowerHull);
 
+            AudioSource audioSource = audioPlayer.GetComponent<AudioSource>();
+            audioSource.clip = sliceSound;
+            audioSource.Play();
+
             Destroy(target);
         }
     }
 
     public void SetupSlicedComp(GameObject slicedObject) {
-        // Slicable layer = 6
-        slicedObject.layer = 6; 
-
         Rigidbody rb = slicedObject.AddComponent<Rigidbody>();
         MeshCollider collider = slicedObject.AddComponent<MeshCollider>();
         collider.convex = true;
