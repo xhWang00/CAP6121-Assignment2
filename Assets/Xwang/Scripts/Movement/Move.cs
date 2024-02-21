@@ -3,6 +3,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
+    public GameObject footstepSound; // Reference to the footstep sound object
+
+    void Start()
+    {
+
+    }
 
     void Update()
     {
@@ -21,5 +27,16 @@ public class PlayerController : MonoBehaviour
 
         // Move the player
         transform.Translate(movement * speed * Time.deltaTime);
+
+        // If the player is moving and the footstep sound is not already playing, play it
+        if (movement != Vector3.zero && !footstepSound.GetComponent<AudioSource>().isPlaying)
+        {
+            footstepSound.GetComponent<AudioSource>().Play();
+        }
+        // If the player is not moving and the footstep sound is playing, stop it
+        else if (movement == Vector3.zero && footstepSound.GetComponent<AudioSource>().isPlaying)
+        {
+            footstepSound.GetComponent<AudioSource>().Stop();
+        }
     }
 }

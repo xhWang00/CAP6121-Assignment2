@@ -46,8 +46,13 @@ public class SliceObject : MonoBehaviour
 
             GameObject upperHull = hull.CreateUpperHull(target, crossMaterial);
             SetupSlicedComp(upperHull);
+
+            Destroy(upperHull, 5f);
+
             GameObject lowerHull = hull.CreateLowerHull(target, crossMaterial);
             SetupSlicedComp(lowerHull);
+
+            Destroy(lowerHull, 5f);
 
             AudioSource audioSource = audioPlayer.GetComponent<AudioSource>();
             audioSource.clip = sliceSound;
