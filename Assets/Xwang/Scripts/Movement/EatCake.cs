@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class PlaySoundOnCollision : MonoBehaviour
+public class EatCake : MonoBehaviour
 {
     public AudioClip clip;
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "MainCamera")
+        if (other.gameObject.CompareTag("MainCamera"))
         {
-            GameObject audioPlayer = GameObject.FindGameObjectWithTag("AudioPlayer");
+            GameObject audioPlayer = GameObject.FindWithTag("AudioPlayer");
             if (audioPlayer != null)
             {
                 AudioSource audioSource = audioPlayer.GetComponent<AudioSource>();
@@ -16,8 +16,6 @@ public class PlaySoundOnCollision : MonoBehaviour
                 {
                     audioSource.clip = clip;
                     audioSource.Play();
-
-                    Destroy(this.gameObject);
                 }
                 else
                 {
@@ -26,8 +24,10 @@ public class PlaySoundOnCollision : MonoBehaviour
             }
             else
             {
-                Debug.LogError("No object found with the tag AudioPlayer.");
+                Debug.LogError("No object with the tag AudioPlayer found.");
             }
+
+            Destroy(gameObject);
         }
     }
 }
