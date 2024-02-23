@@ -1,3 +1,3 @@
 # CAP6121 Assignment2
 
-## Xiao Hang Wang, Rafeeq Shodeinde
+By: Xiao Hang Wang, Rafeeq Shodeinde
